@@ -47,7 +47,7 @@ public class Board {
 		return play(player, x, y, false);
 	}
 	public PlayResult play(int player, int x, int y, boolean dryRun) {
-		if(player != currentPlayer) {
+		if(dryRun == false && player != currentPlayer) {
 			return PlayResult.ErrNotYourTurn;
 		}
 		if(isInBound(x, y) == false) {
@@ -102,7 +102,7 @@ public class Board {
 					if(play(2, i, j, true) == PlayResult.OK) possible[2] = true;
 				}
 			}
-//			System.err.println(possible);
+			System.out.println(currentPlayer + " " + possible[0] + " " + possible[1] + " " + possible[2]);
 			if(possible[3 - currentPlayer] == true) {
 				currentPlayer = 3 - currentPlayer;
 			}else {
