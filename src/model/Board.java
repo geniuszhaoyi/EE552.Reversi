@@ -11,6 +11,10 @@ public class Board {
 		
 		board[3][3] = 2; board[3][4] = 1;
 		board[4][3] = 1; board[4][4] = 2;
+//		board[0][0] = 1;
+//		board[1][0] = 2;
+//		board[0][1] = 2;
+		
 	}
 	public Board() {
 		this(8, 8);
@@ -91,18 +95,21 @@ public class Board {
 		
 		if(dryRun == false) {
 			board[x][y] = player;
-			boolean possible = false;
-			for(int i = 0; i < width; i++) if(possible == false){
-				for(int j = 0; j < height; j++) if(possible == false){
-					if(play(1, i, j, true) == PlayResult.OK) possible = true;
-					if(play(2, i, j, true) == PlayResult.OK) possible = true;
+			boolean possible[] = {false, false, false};
+			for(int i = 0; i < width; i++){
+				for(int j = 0; j < height; j++){
+					if(play(1, i, j, true) == PlayResult.OK) possible[1] = true;
+					if(play(2, i, j, true) == PlayResult.OK) possible[2] = true;
 				}
 			}
 //			System.err.println(possible);
-			if(possible == true)
+			if(possible[3 - currentPlayer] == true) {
 				currentPlayer = 3 - currentPlayer;
-			else
-				currentPlayer = 0;
+			}else {
+				if(possible[currentPlayer] != true) {
+					currentPlayer = 0;
+				}
+			}
 		}
 		return PlayResult.OK;
 	}
